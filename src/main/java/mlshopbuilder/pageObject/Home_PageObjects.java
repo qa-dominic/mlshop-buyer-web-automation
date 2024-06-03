@@ -36,7 +36,50 @@ public class Home_PageObjects {
     public List<WebElement> itemPrices(){
         return getDriver().findElements(By.cssSelector("[class=' text-[#444444] text-xs text-center 2sm:text-[9px] truncate overflow-hidden']"));
     }
-   
-   
+   //
 
+    public List<WebElement> watchNames(){
+        return getDriver().findElements(By.cssSelector("[class='text-md text-[#444444]  text-center truncate overflow-hidden font-bold 2sm:text-[12px]']"));
+    }
+    public WebElement profile_option(){
+        return getDriver().findElement(By.xpath("//p[contains(text(),'Profile')]"));
+    }
+    public WebElement purchaseHistory_option(){
+        return getDriver().findElement(By.xpath("//p[contains(text(),'Purchase History')]"));
+    }
+    public WebElement logout_option(){
+        return getDriver().findElement(By.xpath("//p[contains(text(),'Logout')]"));
+    }
+
+
+    //profile
+    public WebElement fullName_textBox(){
+        return getDriver().findElement(By.xpath("//h3[contains(text(),'Full Name')]/following-sibling::p"));
+    }
+    public WebElement email_textBox(){
+        return getDriver().findElement(By.xpath("//h3[contains(text(),'Email')]/following-sibling::p"));
+    }
+    public WebElement mobileNum_textBox(){
+        return getDriver().findElement(By.xpath("//h3[contains(text(),'Mobile')]/following-sibling::p"));
+    }
+
+    //purchase history
+    public List <WebElement> orderId(){
+        return getDriver().findElements(By.xpath("//div[contains(text(),'Order No:')]/child::span[1]"));
+    }
+    public List <WebElement> paymentMethod(){
+        return getDriver().findElements(By.xpath("//div[contains(text(),'Order No:')]/child::span[5]"));
+    }
+    public List <WebElement> orderStatus(){
+        return getDriver().findElements(By.cssSelector("[class='text-red-600 font-semibold']"));
+    }
+    public List <WebElement> orderTotal(){
+        return getDriver().findElements(By.xpath("//div[contains(text(),'Order Total')]/child::span"));
+    }
+    public List <WebElement> shopStore(){
+        return getDriver().findElements(By.cssSelector("[class='ml-2 text-base font-semibold']"));
+    }
+    public List <WebElement> orderDetails_btn(){
+        return getDriver().findElements(By.xpath("//button[contains(text(),'Order Details')]"));
+    }
 }

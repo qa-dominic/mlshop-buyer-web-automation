@@ -8,6 +8,9 @@ import utilities.Logger.LoggingUtils;
 
 public class BaseTest {
     protected Login_Steps loginSteps;
+    protected Home_Steps homeSteps;
+    protected Shipping_Steps shippingSteps;
+    protected Cart_Steps cartSteps;
 
 
     @Parameters("browser")
@@ -22,6 +25,9 @@ public class BaseTest {
         getDriver().get(System.getProperty("targetUrl"));
         LoggingUtils.info("Redirecting back to home");
         loginSteps = new Login_Steps();
+        homeSteps = new Home_Steps();
+        shippingSteps = new Shipping_Steps();
+        cartSteps = new Cart_Steps();
     }
     private void initializeDriver(DriverType driverType) {
         createDriver(driverType);
@@ -35,11 +41,11 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void clean(){
-       
-
+        getDriver().manage().deleteAllCookies();
     }
     @AfterClass(alwaysRun = true)
     public void tearDown () {
         closeWebBrowser();
     }
+
 }

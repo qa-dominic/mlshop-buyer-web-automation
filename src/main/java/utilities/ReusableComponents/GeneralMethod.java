@@ -353,11 +353,11 @@ public class GeneralMethod extends ExtentReporter{
             throw new AssertionError("Cannot get value for element" + e.getMessage());
         }
     }
-    public void selectByValue(WebElement locator, String value){
+    public void selectByVisibleText(WebElement locator, String value){
         Select select = new Select(locator);
         try{
             wait.until(ExpectedConditions.visibilityOf(locator));
-            select.selectByValue(value);
+            select.selectByVisibleText(value);
             LoggingUtils.info("Selected Value: " + value);
             ExtentReporter.logInfo("Selected Value: " , value);
         }catch (Exception e){

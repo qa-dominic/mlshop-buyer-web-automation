@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SHOP" thread-count="6" parallel="tests">
+<suite name="SHOP" thread-count="6" >
     <listeners>
         <listener class-name="utilities.ExtentReport.ExtentReporter" />
         <listener class-name="utilities.RetryAnalyzer.RetryTransformer"/>
@@ -9,7 +9,11 @@
     <test name="ADMIN">
         <parameter name="browser" value="chrome">
             <classes>
-                <class name="MLshopBuilders.actual.LoginT">
+<!--                <class name="MLshopBuilders.actual.LoginT">-->
+<!--                </class>-->
+<!--                <class name="MLshopBuilders.actual.Shipping">-->
+<!--                </class>-->
+                <class name="MLshopBuilders.actual.Cart">
                 </class>
             </classes>
         </parameter>

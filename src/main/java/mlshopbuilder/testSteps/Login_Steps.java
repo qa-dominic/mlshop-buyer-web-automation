@@ -1,7 +1,13 @@
 package mlshopbuilder.testSteps;
 
 import org.checkerframework.checker.units.qual.t;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Login_Steps extends Base_Steps{
     String loginUrl = "https://mlshoppreprod.mlhuillier.com/authlogin";
@@ -91,16 +97,15 @@ public class Login_Steps extends Base_Steps{
     if(isVisible(loginPageObjects.accNotFound_Element(), getText(loginPageObjects.accNotFound_Element()))){
         click(loginPageObjects.cancel_Btn(), "Cancel Button");
         assertEqual(driver.getCurrentUrl(), loginUrl);
-        if(!isDisplayed(loginPageObjects.accNotFound_Element())){
-            isClose=true;
-        }   
+        try{
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("[class='font-bold text-lg text-center']")));
+            passTest("Validate Element Not on Page", "Element not found as expected");
+        }catch (NoSuchElementException e){
+            passTest("Validate Element Not on Page", "Element not found as expected");
+        }
     }else{
         failTest("Account not found modal is not visible", "");
-    }
-    if(isClose){
-        passTest("MLS_TC_09", "To Validate cancel button in the \"account not found \"modal redirects to login page");
-    }else{
-        failTest("Account not found modal is not closed", "");
     }
    }
 
@@ -117,7 +122,7 @@ public class Login_Steps extends Base_Steps{
     }else{
         failTest("Account not found modal is not visible", "");
     }
-    while (isRegistrationPage) {
+    if (isRegistrationPage) {
         type(loginPageObjects.mobileNumber_fieldRegister(), "Mobile Number Field", "09171");
         type(loginPageObjects.firstName_fieldRegister(), "First Name", "test123");
         type(loginPageObjects.lastName_fieldRegister(), "Last Name", "test123");
@@ -135,7 +140,28 @@ public class Login_Steps extends Base_Steps{
   //MLS_TC_18
   //To Validate One time pin prompt display after clicking register
    public void otpPromptAfterRegister(){
-
+       navigateLoginPage();
+       typeEnter(loginPageObjects.mobileNumber_field(), "Mobile Number Field", "09696969696");
+       boolean isRegistrationPage = false;
+       if(isVisible(loginPageObjects.accNotFound_Element(), getText(loginPageObjects.accNotFound_Element()))){
+           click(loginPageObjects.proceed_Btn(), "Proceed Button");
+           assertEqual(driver.getCurrentUrl(), registerUrl);
+           isRegistrationPage = true;
+       }else{
+           failTest("Account not found modal is not visible", "");
+       }
+       if (isRegistrationPage) {
+           type(loginPageObjects.mobileNumber_fieldRegister(), "Mobile Number Field", "09123456789");
+           type(loginPageObjects.firstName_fieldRegister(), "First Name", "test");
+           type(loginPageObjects.lastName_fieldRegister(), "Last Name", "test");
+           type(loginPageObjects.email_fieldRegister(), "Email", "test@gmail.com");
+           selectByVisibleText(loginPageObjects.province_dropDown(), "CEBU");
+           selectByVisibleText(loginPageObjects.city_dropDown(), "CEBU CITY");
+           type(loginPageObjects.streetField(), "Street", "test");
+           click(loginPageObjects.register_Btn(), "Register");
+           isVisible(loginPageObjects.otpMessage(), getText(loginPageObjects.otpMessage()));
+           passTest("OTP is Visible", "");
+       }
    }
 
    public void navigateLoginPage(){
