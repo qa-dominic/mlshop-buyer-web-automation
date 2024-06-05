@@ -73,11 +73,12 @@ public class Cart_Steps extends Base_Steps{
             click(deleteBtn, "Delete Button");
             click(cart_PageObjects.yes_btn(), "Yes");
             waitSleep(2000);
+            break;
         }
         try{
             int currentTotal = Integer.parseInt(getText(home_PageObjects.shoppingCartItemNumber()));
             Assert.assertNotEquals(currentTotal, prevTotal);
-            passTest("Cart Numbers Decremented", "");
+            passTest("Cart Numbers Decremented", "Previous total: " + prevTotal + "Current total: " + currentTotal);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 //            wait.until(ExpectedConditions.invisibilityOfAllElements(cart_PageObjects.delete_btn()));
 //            passTest("Validate Element Not on Page", "Element not found as expected");

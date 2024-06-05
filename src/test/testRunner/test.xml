@@ -13,7 +13,9 @@
 <!--                </class>-->
 <!--                <class name="MLshopBuilders.actual.Shipping">-->
 <!--                </class>-->
-                <class name="MLshopBuilders.actual.Cart">
+<!--                <class name="MLshopBuilders.actual.Cart">-->
+<!--                </class>-->
+                <class name="MLshopBuilders.actual.Home">
                 </class>
             </classes>
         </parameter>

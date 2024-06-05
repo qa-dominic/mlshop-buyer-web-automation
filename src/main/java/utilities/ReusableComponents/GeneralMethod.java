@@ -39,7 +39,12 @@ public class GeneralMethod extends ExtentReporter{
                 ExtentReporter.logInfo("Clicked on element: " + elementName, "");
                 actions.click(element).perform();          
             }
-        } catch (Exception e) {
+        } catch (StaleElementReferenceException e){
+            LoggingUtils.info("Stale Clicked on element: " + elementName + ":::: due to " + e);
+            ExtentReporter.logInfo("Stale Clicked on element: " + elementName, "" + e);
+            actions.click(locator).perform();
+        }
+        catch (Exception e) {
             ExtentReporter.logFail("Failed to click element: " + elementName, "Caused: " + e);
             LoggingUtils.error("Failed to click element: " + elementName + "Caused"  + e);
             throw new AssertionError("Failed to click element: " + elementName);
@@ -88,6 +93,10 @@ public class GeneralMethod extends ExtentReporter{
             ExtentReporter.logFail("Element: " + elementName + "not visible", "Caused: ");
             LoggingUtils.error("Element: " + elementName + "not visible");
             throw new AssertionError("Element: " + elementName + " not visible" );
+        } catch (Exception e){
+            LoggingUtils.error(e);
+            ExtentReporter.logFail("err", String.valueOf(e));
+            throw new AssertionError(e );
         }
     }
 

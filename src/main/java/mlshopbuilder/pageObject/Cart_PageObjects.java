@@ -16,6 +16,9 @@ public class Cart_PageObjects {
     public WebElement itemPrice_p(){
         return getDriver().findElement(By.cssSelector("[class=' text-[#333333] text-[24px] md:text-[24px] sm:text-[24px] 2sm:text-[24px] 3sm:text-[24px] font-bold md:flex-col sm:flex-col 2sm:flex-col 3sm:flex-col']"));
     }
+    public List <WebElement> itemSpecs(){
+        return getDriver().findElements(By.xpath("//div[@class=' flex flex-1 px-5 ']/child::p"));
+    }
     public WebElement addToCart_btn(){
         return getDriver().findElement(By.cssSelector("[class=' bg-[#845f00] px-5 py-1  flex mt-2 rounded-lg hover:bg-gray-300 text-[#FFFFFF] place-items-center justify-center font-medium lg:w-[175px] md:w-[175px] sm:w-[175px] 2sm:w-full 3sm:w-full']"));
     }
@@ -58,4 +61,5 @@ public class Cart_PageObjects {
     public WebElement itemSelected(){
         return getDriver().findElement(By.xpath("//p[contains(text(),'Item Selected : ')]"));
     }
+
 }

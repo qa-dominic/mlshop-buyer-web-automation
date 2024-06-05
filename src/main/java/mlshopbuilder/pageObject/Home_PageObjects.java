@@ -82,4 +82,38 @@ public class Home_PageObjects {
     public List <WebElement> orderDetails_btn(){
         return getDriver().findElements(By.xpath("//button[contains(text(),'Order Details')]"));
     }
+
+
+    //Filter
+
+
+
+    public WebElement allTypes(){
+        return getDriver().findElement(By.cssSelector("[title='All Types']"));
+    }
+    public WebElement ringType(){
+        return getDriver().findElement(By.cssSelector("[title='Ring']"));
+    }
+
+    public WebElement necklaceType(){
+        return getDriver().findElement(By.cssSelector("[title='Necklace']"));
+    }
+    public WebElement braceletsType(){
+        return getDriver().findElement(By.cssSelector("[title='Bracelets']"));
+    }
+    public WebElement earringsType(){
+        return getDriver().findElement(By.cssSelector("[title='Earrings']"));
+    }
+    public WebElement pendantType(){
+        return getDriver().findElement(By.cssSelector("[title='Pendant']"));
+    }
+    public WebElement setsType(){
+        return getDriver().findElement(By.cssSelector("[title='Sets']"));
+    }
+    public WebElement brouchType(){
+        return getDriver().findElement(By.cssSelector("[title='Brouch']"));
+    }
+    public WebElement engagementType(){
+        return getDriver().findElement(By.cssSelector("[title='Engagement']"));
+    }
 }
