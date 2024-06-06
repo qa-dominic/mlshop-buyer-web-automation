@@ -62,4 +62,7 @@ public class Shipping_PageObjects {
     public WebElement totalPayment_text(){
         return getDriver().findElement(By.xpath("//p[contains(text(), 'Total Payment')]/parent::div/following-sibling::div[2]/child::p"));
     }
+    public List <WebElement> productsOrdered(){
+        return getDriver().findElements(By.xpath("//td[@class='flex flex-col px-2 py-4 ']/child::div/child::p"));
+    }
 }

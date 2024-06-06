@@ -116,4 +116,44 @@ public class Home_PageObjects {
     public WebElement engagementType(){
         return getDriver().findElement(By.cssSelector("[title='Engagement']"));
     }
+
+    //All Gold Karats
+    public WebElement allGoldKarats(){
+        return getDriver().findElement(By.cssSelector("[title='All Gold Karats']"));
+    }
+    public WebElement goldKarat(String karat){
+        return getDriver().findElement(By.cssSelector("[title='"+karat+"']"));
+    }
+    //All Gold Colors
+    public WebElement allGoldColors(){
+        return getDriver().findElement(By.cssSelector("[title='All Gold Colors']"));
+    }
+    public WebElement goldColors(String color){
+        return getDriver().findElement(By.cssSelector("[title='"+color+"']"));
+    }
+
+    public WebElement allStones(){
+        return getDriver().findElement(By.cssSelector("[title='All Stones']"));
+    }
+    public WebElement stone(String stone){
+        return getDriver().findElement(By.cssSelector("[title='"+stone+"']"));
+    }
+    public WebElement allStoneColors(){
+        return getDriver().findElement(By.cssSelector("[title='All Stone Colors']"));
+    }
+    public WebElement stoneColor(String color){
+        return getDriver().findElement(By.cssSelector("[title='"+color+"']"));
+    }
+    public WebElement gender(String gender){
+        return getDriver().findElement(By.cssSelector("[title='"+gender+"']"));
+    }
+    public WebElement allGenders(){
+        return getDriver().findElement(By.cssSelector("[title='All Genders']"));
+    }
+    public WebElement sortPrice(String option){
+        return getDriver().findElement(By.cssSelector("[title='"+option+"']"));
+    }
+    public WebElement sortBy(){
+        return getDriver().findElement(By.cssSelector("[title='Sort by']"));
+    }
 }

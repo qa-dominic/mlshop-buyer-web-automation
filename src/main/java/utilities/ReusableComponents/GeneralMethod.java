@@ -270,7 +270,7 @@ public class GeneralMethod extends ExtentReporter{
         try{
             js = (JavascriptExecutor) getWebDriver();
             js.executeScript("arguments[0].scrollIntoView(true);", element);
-            LoggingUtils.info("Scrolling into element: "+ element);
+            LoggingUtils.info("Scrolling into element: "+ element.getText());
         }catch (Exception e){
             LoggingUtils.info("Error "+ e);
             throw new AssertionError("Assertion error: "+ e.getMessage());
@@ -368,7 +368,7 @@ public class GeneralMethod extends ExtentReporter{
             wait.until(ExpectedConditions.visibilityOf(locator));
             select.selectByVisibleText(value);
             LoggingUtils.info("Selected Value: " + value);
-            ExtentReporter.logInfo("Selected Value: " , value);
+            ExtentReporter.logInfo("Selected Value: "+ value + " from " + locator , "");
         }catch (Exception e){
             throw new AssertionError("No Selected Value" + e.getMessage());
         }
@@ -417,6 +417,17 @@ public class GeneralMethod extends ExtentReporter{
         }finally{
             LoggingUtils.info("Entering text: " + text);
             ExtentReporter.logInfo("Entering text: " + text, "");
+        }
+    }
+    public void assertEqual(double actual, double expected, double delta){
+        try{
+            Assert.assertEquals(actual, expected, delta);
+            LoggingUtils.info(actual +  " and " + expected + " are matched");
+            ExtentReporter.logInfo("Assertion: "+actual +  " and " + expected + " are matched" , "asserted values " + actual + " and " + expected);
+        }catch(Exception e){
+            LoggingUtils.error("Assertion error: "+ e.getMessage());
+            ExtentReporter.logFail("Assertion error: "+ e.getMessage(), "Caused: "+ e);
+            throw new AssertionError("Assertion error: "+ e.getMessage());
         }
     }
 }
