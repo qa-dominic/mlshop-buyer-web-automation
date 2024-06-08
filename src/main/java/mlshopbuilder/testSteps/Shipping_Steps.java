@@ -2,7 +2,12 @@ package mlshopbuilder.testSteps;
 
 
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import utilities.ExtentReport.ExtentReporter;
+import utilities.Logger.LoggingUtils;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class Shipping_Steps extends Base_Steps{
     private final String purhcaseHistoryUrl = "https://mlshoppreprod.mlhuillier.com/purchasehistory";
@@ -22,6 +27,7 @@ public class Shipping_Steps extends Base_Steps{
         isVisible(loginPageObjects.otpMessage(), getText(loginPageObjects.otpMessage()));
         loginSteps.inputOTP();
         waitSleep(5000);
+        click(loginPageObjects.okay_Btn(), getText(loginPageObjects.okay_Btn()));
         assertEqual(driver.getCurrentUrl(), purhcaseHistoryUrl);
     }
     //MLS_TC_110
@@ -73,7 +79,63 @@ public class Shipping_Steps extends Base_Steps{
         waitSleep(5000);
         assertEqual(driver.getCurrentUrl(), purhcaseHistoryUrl);
     }
+    //MLS_TC_99 To Validate shipping details jewelry items are present in shipping details page and is under mlshop jewelry store
+    public void areItemsPresent_fromCart_toShipping(){
+        homeSteps.clickProduct();
+        homeSteps.addToCart();
+        homeSteps.goToCart();
+        List<String> cartItems = new ArrayList<>();
+        List<String> shippingItems = new ArrayList<>();
+        List<String> purchasedItems = new ArrayList<>();
+        waitSleep(1800);
+        for(WebElement itemName : cart_PageObjects.items_cart()){
+            cartItems.add(itemName.getText());
+        }
+        click(cart_PageObjects.checkOut_btn(), "Checkout");
+        waitSleep(2000);
+        for(WebElement itemName_shipping : shippingPageObjects.productsOrdered()){
+            shippingItems.add(itemName_shipping.getText());
+        }
+        //compare cartItems and shippingItems, shippingItems should contains cartItems strings
+        if(new HashSet<>(shippingItems).containsAll(cartItems)){
+            for(String items: shippingItems){
+                ExtentReporter.logInfo("Items in Shipping Page: "+items,"");
+                LoggingUtils.info("Items in Shipping Page: "+items);
+            }
+            for(String items: cartItems){
+                ExtentReporter.logInfo("Items in Cart Page: "+items,"");
+                LoggingUtils.info("Items in Cart Page: "+items);
+            }
+            passTest("ITEMS IN CART ARE IN SHIPPING DETAILS PAGE", "");
+        }else{
+            failTest("NOT ALL ITEMS FROM THE CART ARE PRESENT", "");
+        }
+        selectPickUpBranch();
+        scrollToElement(shippingPageObjects.placeOrder_Btn());
+        click(shippingPageObjects.mlwallet_radioButton(), "MLWALLET Option");
+        double currentTotal = parsePesoAndConvertToDouble(shippingPageObjects.totalPayment_text());
+        assertEqual(currentTotal, computeTotal(), 0.01);
+        click(shippingPageObjects.placeOrder_Btn(), "Place Order");
+        click(shippingPageObjects.proceed_Btn(), "Proceed");
+        waitSleep(1800);
+        isVisible(loginPageObjects.otpMessage(), getText(loginPageObjects.otpMessage()));
+        loginSteps.inputOTP();
+        waitSleep(5000);
+        click(loginPageObjects.okay_Btn(), getText(loginPageObjects.okay_Btn()));
 
+        //Purchase History
+        assertEqual(driver.getCurrentUrl(), purhcaseHistoryUrl);
+        for(WebElement purchasedItems_element : home_PageObjects.productNames()){
+            purchasedItems.add(purchasedItems_element.getText());
+        }
+        if(new HashSet<>(purchasedItems).containsAll(shippingItems)) {
+            assertEqual(parsePesoAndConvertToDouble(home_PageObjects.firstOrderTotal()),currentTotal,0.01);
+            //compare double data type into List Double data type
+            passTest("PURCHASED ITEMS ARE PRESENT IN PURCHASE HISTORY", "");
+        }
+        //Order Details
+
+    }
     //MLS_TC_102
     //To Validate branch section label "branch address:" matches the selected address dropdown value
 

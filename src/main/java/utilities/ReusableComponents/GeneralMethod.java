@@ -26,15 +26,14 @@ public class GeneralMethod extends ExtentReporter{
     protected final Actions actions = new Actions(driver);
 
     public GeneralMethod(){
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
     
     public void click(WebElement locator, String elementName){
         try {
             if (isDisplayed(locator)) {
                 WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-                // element.click();
                 LoggingUtils.info("Clicked on element: " + elementName);
                 ExtentReporter.logInfo("Clicked on element: " + elementName, "");
                 actions.click(element).perform();          
@@ -43,8 +42,11 @@ public class GeneralMethod extends ExtentReporter{
             LoggingUtils.info("Stale Clicked on element: " + elementName + ":::: due to " + e);
             ExtentReporter.logInfo("Stale Clicked on element: " + elementName, "" + e);
             actions.click(locator).perform();
-        }
-        catch (Exception e) {
+        }catch (TimeoutException | NoSuchElementException e) {
+            ExtentReporter.logFail("Failed to click element: " + elementName, "Caused: " + e);
+            LoggingUtils.error("Failed to click element: " + elementName + "Caused" + e);
+            throw new AssertionError("Failed to click element: " + elementName, e);
+        } catch (Exception e) {
             ExtentReporter.logFail("Failed to click element: " + elementName, "Caused: " + e);
             LoggingUtils.error("Failed to click element: " + elementName + "Caused"  + e);
             throw new AssertionError("Failed to click element: " + elementName);
@@ -58,9 +60,8 @@ public class GeneralMethod extends ExtentReporter{
                 LoggingUtils.info("Typed into field: " + elementName + ", Value: "+ text);
                 ExtentReporter.logInfo("Typed into field: " + elementName , "Typed Value: "+ text);
                 element.clear();
-                // element.sendKeys(text);          
                 actions.sendKeys(element, text)
-                .perform();;       
+                .perform();
             }
         } catch (NoSuchElementException e) {
         LoggingUtils.error("Failed to type into field: "+ elementName + ", Value: "+ text);

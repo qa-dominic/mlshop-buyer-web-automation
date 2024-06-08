@@ -631,9 +631,113 @@ public class Home_Steps extends Base_Steps{
     }
 
     //MLS_TC_57 To Validate Brand Filter function "All brands" will display all types of brand
+    public void filterAllBrands(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.allBrands(),  home_PageObjects.allBrands().getText()+" filter");
+        waitSleep(1500);
+        for(WebElement item : home_PageObjects.itemNames()){
+                LoggingUtils.info("Item Name: "+item.getText());
+        }
+    }
     //MLS_TC_58 To Validate Brand Filter function "Rolex" will display rolex watch
+    public void filterRolex(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.brand(Brands[0]), Brands[0] +" filter");
+        waitSleep(1500);
+        boolean isFound = false;
+        for(WebElement item : home_PageObjects.itemNames()){
+            if(item.getText().contains(Brands[0])){
+                LoggingUtils.info("Item Name: "+item.getText());
+                isFound = true;
+            }
+            if(isFound){
+                passTest("filterRolex", "");
+                break;
+            }else{
+                failTest("No Items to Filter","");
+            }
+        }
+    }
     //MLS_TC_59 To Validate Brand Filter function "Omega" will display Omega watch
+    public void filterOmega(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.brand(Brands[1]), Brands[1] +" filter");
+        waitSleep(1500);
+        boolean isFound = false;
+        for(WebElement item : home_PageObjects.itemNames()){
+            if(item.getText().contains(Brands[1])){
+                LoggingUtils.info("Item Name: "+item.getText());
+                isFound = true;
+            }
+            if(isFound){
+                passTest("filterOmega", "");
+                break;
+            }else{
+                failTest("No Items to Filter","");
+            }
+        }
+    }
+    public void filterTagHeuer(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.brand(Brands[2]), Brands[2] +" filter");
+        waitSleep(1500);
+        boolean isFound = false;
+        for(WebElement item : home_PageObjects.itemNames()){
+            if(item.getText().contains(Brands[2])){
+                LoggingUtils.info("Item Name: "+item.getText());
+                isFound = true;
+            }
+            if(isFound){
+                passTest("filterTagHeuer", "");
+                break;
+            }else{
+                failTest("No Items to Filter","");
+            }
+        }
+    }
 
+    public void filterSeiko(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.brand(Brands[3]), Brands[3] +" filter");
+        waitSleep(1500);
+        boolean isFound = false;
+        for(WebElement item : home_PageObjects.itemNames()){
+            if(item.getText().contains(Brands[3])){
+                LoggingUtils.info("Item Name: "+item.getText());
+                isFound = true;
+            }
+            if(isFound){
+                passTest("filterSeiko", "");
+                break;
+            }else{
+                failTest("No Items to Filter","");
+            }
+        }
+    }
+    public void filterCasio(){
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        click(home_PageObjects.allBrands(), home_PageObjects.allBrands().getText());
+        click(home_PageObjects.brand(Brands[4]), Brands[4] +" filter");
+        waitSleep(1500);
+        boolean isFound = false;
+        for(WebElement item : home_PageObjects.itemNames()){
+            if(item.getText().contains(Brands[4])){
+                LoggingUtils.info("Item Name: "+item.getText());
+                isFound = true;
+            }
+            if(isFound){
+                passTest("filterCasio", "");
+                break;
+            }else{
+                failTest("No Items to Filter","");
+            }
+        }
+    }
 
     //MLS_TC_79
     //To Validate product details in Jewelry tab home page

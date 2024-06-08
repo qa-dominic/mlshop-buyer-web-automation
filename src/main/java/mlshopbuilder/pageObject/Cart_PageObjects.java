@@ -62,4 +62,7 @@ public class Cart_PageObjects {
         return getDriver().findElement(By.xpath("//p[contains(text(),'Item Selected : ')]"));
     }
 
+    public List <WebElement> items_cart(){
+        return getDriver().findElements(By.xpath("//div[@class='2xl:w-[600px] flex-1 pl-4 2sm:pl-0 3sm:pl-1 ']/child::p[1]"));
+    }
 }

@@ -83,6 +83,13 @@ public class Home_PageObjects {
         return getDriver().findElements(By.xpath("//button[contains(text(),'Order Details')]"));
     }
 
+    public List <WebElement> productNames(){
+        return getDriver().findElements(By.xpath("//div[@class='h-auto flex flex-row gap-2']/child::div[3]/child::p"));
+    }
+
+    public WebElement firstOrderTotal(){
+        return getDriver().findElement(By.xpath("(//div[contains(text(),'Order Total')]/child::span)[1]"));
+    }
 
     //Filter
 
@@ -155,5 +162,11 @@ public class Home_PageObjects {
     }
     public WebElement sortBy(){
         return getDriver().findElement(By.cssSelector("[title='Sort by']"));
+    }
+    public WebElement allBrands(){
+        return getDriver().findElement(By.cssSelector("[title='All Brands']"));
+    }
+    public WebElement brand(String option){
+        return getDriver().findElement(By.cssSelector("[title='"+option+"']"));
     }
 }
