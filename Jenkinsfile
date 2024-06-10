@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat "mvn test -DfileName="test.xml""
+                bat "mvn test -DfileName=test.xml"
             }
 
             post {
