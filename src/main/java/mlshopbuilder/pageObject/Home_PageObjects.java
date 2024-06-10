@@ -30,6 +30,7 @@ public class Home_PageObjects {
     public List<WebElement> itemNames(){
         return getDriver().findElements(By.cssSelector("[class=' text-md text-[#444444]  text-center truncate overflow-hidden font-bold 2sm:text-[12px]']"));
     }
+    //text-md text-[#444444]  text-center truncate overflow-hidden font-bold 2sm:text-[12px]
     public List<WebElement> itemDescriptions(){
         return getDriver().findElements(By.cssSelector("[class=' text-[#444444] text-xs text-center 2sm:text-[9px] truncate overflow-hidden']"));
     }
