@@ -3,7 +3,7 @@ package utilities.Driver;
 public enum DriverType{
     CHROME {
     },
-    REMOTE_CRHOME {
+    REMOTE_CHROME {
     },
     FIREFOX {
     };
