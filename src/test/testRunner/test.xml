@@ -7,7 +7,7 @@
     </listeners>
 
     <test name="SHOP">
-        <parameter name="browser" value="chrome">
+        <parameter name="browser" value="remote_chrome">
             <classes>
                 <class name="MLshopBuilders.actual.LoginT">
                 </class>

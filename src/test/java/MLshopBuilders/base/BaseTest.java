@@ -19,6 +19,7 @@ public class BaseTest {
         if (browser == null || browser.isEmpty()) {
             throw new IllegalArgumentException("Browser parameter cannot be null or empty");
         }
+        LoggingUtils.info("browser type: "+browser.toUpperCase());
         initializeDriver(DriverType.valueOf(browser.toUpperCase()));
         getDriver().manage().deleteAllCookies();
         Thread.sleep(3000);
