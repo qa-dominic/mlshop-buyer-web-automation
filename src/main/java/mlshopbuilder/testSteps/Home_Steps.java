@@ -786,4 +786,18 @@ public class Home_Steps extends Base_Steps{
         passTest("viewProduct_watchDetails", "");
 
     }
+    //To Validate pagination redirection after clicking page number on home page
+    public void paginationValidation(){
+        click(home_PageObjects.amparitoCollectionsTab(), home_PageObjects.amparitoCollectionsTab().getText());
+        for(WebElement page: home_PageObjects.paginationNumber()){
+            scrollToElement(page);
+            waitSleep(2500);
+            click(page, page.getText());
+            break;
+        }
+        for(WebElement item: home_PageObjects.itemNames()){
+            LoggingUtils.info("Items present: "+item.getText());
+            ExtentReporter.logInfo("Items present: "+item.getText(), "visible");
+        }
+    }
 }

@@ -67,13 +67,13 @@ public class DriverManager {
             final ChromeOptions options = new ChromeOptions ();
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
-//            options.addArguments("--disable-browser-side-navigation");
-//            options.addArguments("--disable-gpu");
-//            options.addArguments("--start-maximized");
-//            options.addArguments("--ignore-certificate-errors");
-//            options.addArguments("--disable-notifications");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--ignore-certificate-errors");
+            //options.setPlatformName("Windows 11");
+
+            // Set the OS capabilities
+
 //            options.addArguments("--incognito");
-//            options.addArguments("use-fake-ui-for-media-stream");
             String seleniumGridUrl = System.getProperty("gridURL");
             if (seleniumGridUrl == null || seleniumGridUrl.trim().isEmpty()) {
                 throw new IllegalStateException("Selenium Grid URL is not set. Please set the 'seleniumGridURL' system property.");
@@ -119,9 +119,9 @@ public static void closeWebBrowser() {
     //setup for timeouts
     private static void setupBrowserTimeouts(){
         LoggingUtils.info("Setting browser timeouts...");
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        getDriver().manage().timeouts().pageLoadTimeout (Duration.ofSeconds (30));
-        getDriver().manage().timeouts().scriptTimeout (Duration.ofSeconds (30));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        getDriver().manage().timeouts().pageLoadTimeout (Duration.ofSeconds (10));
+        getDriver().manage().timeouts().scriptTimeout (Duration.ofSeconds (10));
     }
 
     private DriverManager(){}

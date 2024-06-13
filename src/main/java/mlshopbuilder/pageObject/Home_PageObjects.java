@@ -170,4 +170,5 @@ public class Home_PageObjects {
     public WebElement brand(String option){
         return getDriver().findElement(By.cssSelector("[title='"+option+"']"));
     }
+    public List <WebElement> paginationNumber() {return getDriver().findElements(By.xpath("//div[@class=' flex justify-end text-xs px-20 mb-6 gap-1 h-auto']/child::button"));}
 }

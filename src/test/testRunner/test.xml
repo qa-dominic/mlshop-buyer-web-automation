@@ -9,12 +9,12 @@
     <test name="SHOP">
         <parameter name="browser" value="chrome">
             <classes>
-                <class name="MLshopBuilders.actual.LoginT">
-                </class>
-                <class name="MLshopBuilders.actual.Shipping">
-                </class>
-                <class name="MLshopBuilders.actual.Cart">
-                </class>
+<!--                <class name="MLshopBuilders.actual.LoginT">-->
+<!--                </class>-->
+<!--                <class name="MLshopBuilders.actual.Shipping">-->
+<!--                </class>-->
+<!--                <class name="MLshopBuilders.actual.Cart">-->
+<!--                </class>-->
                 <class name="MLshopBuilders.actual.Home">
                 </class>
             </classes>

@@ -173,5 +173,10 @@ public class Home extends BaseTest {
     public  void filterCasio() throws Exception{
         homeSteps.filterCasio();
     }
+    @Test(priority = 41, description = "To Validate Brand Filter function \"Casio\" will display rolex watch")
+    public  void paginationValidation() throws Exception{
+        homeSteps.paginationValidation();
+    }
+
 
 }

@@ -269,14 +269,13 @@ public class GeneralMethod extends ExtentReporter{
     }
     public void scrollToElement(WebElement element) {
         try{
-            js = (JavascriptExecutor) getWebDriver();
-            js.executeScript("arguments[0].scrollIntoView(true);", element);
+            actions.scrollToElement(element).perform();
             LoggingUtils.info("Scrolling into element: "+ element.getText());
+            ExtentReporter.logInfo("Scrolling into element: ", "");
         }catch (Exception e){
             LoggingUtils.info("Error "+ e);
             throw new AssertionError("Assertion error: "+ e.getMessage());
         }
-
     }
     public List<WebElement> staleException_Click(WebElement locator) {
         List<WebElement> outcome = null;
@@ -428,6 +427,16 @@ public class GeneralMethod extends ExtentReporter{
         }catch(Exception e){
             LoggingUtils.error("Assertion error: "+ e.getMessage());
             ExtentReporter.logFail("Assertion error: "+ e.getMessage(), "Caused: "+ e);
+            throw new AssertionError("Assertion error: "+ e.getMessage());
+        }
+    }
+    public void switchFrame(WebElement element) {
+        try{
+            driver.switchTo().frame(element);
+            LoggingUtils.info("Switch frame: "+ element.getText());
+            ExtentReporter.logInfo("Switch frame: ", "");
+        }catch (Exception e){
+            LoggingUtils.info("Error "+ e);
             throw new AssertionError("Assertion error: "+ e.getMessage());
         }
     }
