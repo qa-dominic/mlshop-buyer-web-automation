@@ -120,7 +120,7 @@ public static void closeWebBrowser() {
     private static void setupBrowserTimeouts(){
         LoggingUtils.info("Setting browser timeouts...");
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        getDriver().manage().timeouts().pageLoadTimeout (Duration.ofSeconds (10));
+        getDriver().manage().timeouts().pageLoadTimeout (Duration.ofSeconds (20));
         getDriver().manage().timeouts().scriptTimeout (Duration.ofSeconds (10));
     }
 

@@ -141,13 +141,107 @@ public class Shipping_Steps extends Base_Steps{
 
     //MLS_TC_114
     //To Validate successful purchase using e-wallet "grab pay" as payment method
+    public void eWallet_grabPay(){
+        waitSleep(500);
+        click(home_PageObjects.watchesTab(), "Watches Tab");
+        homeSteps.clickWatchProduct();
+        homeSteps.addToCartWatch();
+        homeSteps.goToCart();
+        List<String> cartItems = new ArrayList<>();
+        List<String> shippingItems = new ArrayList<>();
+        List<String> purchasedItems = new ArrayList<>();
+        List<String> inHistoryItems = new ArrayList<>();
+        waitSleep(1800);
+        for(WebElement itemName : cart_PageObjects.items_cart()){
+            cartItems.add(itemName.getText());
+        }
+        click(cart_PageObjects.checkOut_btn(), "Checkout");
+        waitSleep(2000);
+        for(WebElement itemName_shipping : shippingPageObjects.productsOrdered()){
+            shippingItems.add(itemName_shipping.getText());
+        }
+        //compare cartItems and shippingItems, shippingItems should contains cartItems strings
+        if(new HashSet<>(shippingItems).containsAll(cartItems)){
+            for(String items: shippingItems){
+                ExtentReporter.logInfo("Items in Shipping Page: "+items,"");
+                LoggingUtils.info("Items in Shipping Page: "+items);
+            }
+            for(String items: cartItems){
+                ExtentReporter.logInfo("Items in Cart Page: "+items,"");
+                LoggingUtils.info("Items in Cart Page: "+items);
+            }
+            passTest("ITEMS IN CART ARE IN SHIPPING DETAILS PAGE", "");
+        }else{
+            failTest("NOT ALL ITEMS FROM THE CART ARE PRESENT", "");
+        }
+        selectPickUpBranch();
+        scrollToElement(shippingPageObjects.placeOrder_Btn());
+        click(shippingPageObjects.ewallet_radioButton(), "eWallet Option");
+        waitSleep(800);
+        click(shippingPageObjects.grabpay_radioButton(), "Grab pay");
+        waitSleep(500);
+        double currentTotal = parsePesoAndConvertToDouble(shippingPageObjects.totalPayment_text());
+        assertEqual(currentTotal, computeTotal(), 0.01);
+        click(shippingPageObjects.placeOrder_Btn(), "Place Order");
+        click(shippingPageObjects.proceed_Btn(), "Proceed");
+        waitSleep(1800);
+        isVisible(loginPageObjects.otpMessage(), getText(loginPageObjects.otpMessage()));
+        loginSteps.inputOTP();
+        waitSleep(10000);
+        //paymongo
+        switchToNextTab();
+        waitSleep(10000);
+        isVisible(shippingPageObjects.total_paymongo(), shippingPageObjects.total_paymongo().getText());
+        double paymongoTotal = parsePesoAndConvertToDouble(shippingPageObjects.total_paymongo());
+        assertEqual(paymongoTotal, currentTotal, 0.1);
+        for(WebElement items : shippingPageObjects.itemName_paymongo()){
+            purchasedItems.add(items.getText());
+        }
+        for (String items : purchasedItems){
+            ExtentReporter.logInfo("Items in Paymongo Page: "+items,"");
+            LoggingUtils.info("Items in Paymongo Page: "+items);
+        }
+        click(shippingPageObjects.continueButton_paymongo(), "Continue button on Paymongo portal");
+        waitSleep(1200);
+        click(shippingPageObjects.privacyPolicy_checkBox(), "Paymongo's Privacy Policy checkbox");
+        waitSleep(800);
+        click(shippingPageObjects.completePayment_button(), "Complete payment button");
+        waitSleep(800);
+        click(shippingPageObjects.authorizeTest_button(), "Authorize Test Payment button");
+        waitSleep(800);
+        isVisible(shippingPageObjects.success_header(), "Success Header");
+        click(shippingPageObjects.returnMerchant_button(), "Return to merchant");
 
+        //back to shop
+        switchToNextTab();
+        scrollToElement(home_PageObjects.userIcon());
+        click(home_PageObjects.userIcon(), home_PageObjects.userIcon().getText());
+        click(home_PageObjects.purchaseHistory_option(), home_PageObjects.purchaseHistory_option().getText());
+        waitSleep(1200);
+        assertEqual(driver.getCurrentUrl(), purhcaseHistoryUrl);
+        for(WebElement items : home_PageObjects.productNames()){
+            inHistoryItems.add(items.getText());
+        }
+        if(new HashSet<>(inHistoryItems).containsAll(shippingItems)) {
+            for (String items : inHistoryItems){
+                ExtentReporter.logInfo("Items in Purchase History Page: "+items,"");
+                LoggingUtils.info("Items in Purchase History Page: "+items);
+            }
+            passTest("ITEMS IN SHIPPING PAGE ARE PRESENT IN PURCHASE HISTORY", "");
+        }else{
+            failTest("SOME ITEMS ARE NOT PRESENT IN PURCHASE HISTORY", "");
+        }
+    }
     //MLS_TC_115
     //To Validate successful purchase using e-wallet "gcash" as payment method
+    public void eWallet_gCash(){
 
+    }
     //MLS_TC_116
     //To Validate successful purchase using e-wallet "paymaya" as payment method
+    public void eWallet_paymaya(){
 
+    }
     //MLS_TC_117
     //To Validate successful purhcase using visa/mastercard as payment method
 
