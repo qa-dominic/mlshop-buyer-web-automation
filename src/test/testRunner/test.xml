@@ -3,7 +3,7 @@
 <suite name="SHOP" thread-count="6" >
     <listeners>
         <listener class-name="utilities.ExtentReport.ExtentReporter" />
-<!--        <listener class-name="utilities.RetryAnalyzer.RetryTransformer"/>-->
+        <listener class-name="utilities.RetryAnalyzer.RetryTransformer"/>
     </listeners>
 
     <test name="SHOP">

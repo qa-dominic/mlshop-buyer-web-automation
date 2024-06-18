@@ -17,7 +17,7 @@ import java.util.Set;
 public class DriverManager {
     //thread local for web driver
     private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<> ();
-    private static final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
+    //private static final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
     public static void createDriver(final DriverType browser){
         switch (browser){
             case CHROME:
@@ -67,7 +67,7 @@ public class DriverManager {
             final ChromeOptions options = new ChromeOptions ();
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--start-maximized");
             options.addArguments("--ignore-certificate-errors");
             //options.setPlatformName("Windows 11");
 

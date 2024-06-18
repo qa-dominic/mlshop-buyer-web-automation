@@ -34,7 +34,7 @@
         <browser>chrome</browser>
         <headless>false</headless>
         <remote>false</remote>
-        <seleniumGridURL>http://10.4.8.14:4444/wd/hub</seleniumGridURL>
+        <seleniumGridURL>http://10.10.8.167:4444/wd/hub</seleniumGridURL>
         <platform></platform>
         <browserVersion />
         <projectBuildDir>${project.build.directory}</projectBuildDir>
