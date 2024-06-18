@@ -14,7 +14,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
             //You could mention maxRetryCnt (Max Retry Count) as per your requirement. Here I took 2, If any failed testcases then it runs two times
             int maxRetryCnt = 2;
             if (retryCnt < maxRetryCnt) {
-                System.out.println("Retrying " + result.getName() + " again and the count is " + (retryCnt + 3));
+                System.out.println("Retrying " + result.getName() + " again and the count is " + (retryCnt + 1));
                 retryCnt++;
                 return true;
             }

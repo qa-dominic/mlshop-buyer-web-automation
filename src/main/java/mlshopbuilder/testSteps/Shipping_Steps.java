@@ -141,7 +141,7 @@ public class Shipping_Steps extends Base_Steps{
 
     //MLS_TC_114
     //To Validate successful purchase using e-wallet "grab pay" as payment method
-    public void eWallet_grabPay(){
+    public void eWallet_paymentMethod(String ewallet_option){
         waitSleep(500);
         click(home_PageObjects.watchesTab(), "Watches Tab");
         homeSteps.clickWatchProduct();
@@ -176,9 +176,20 @@ public class Shipping_Steps extends Base_Steps{
         }
         selectPickUpBranch();
         scrollToElement(shippingPageObjects.placeOrder_Btn());
+        //eWallet option
         click(shippingPageObjects.ewallet_radioButton(), "eWallet Option");
         waitSleep(800);
-        click(shippingPageObjects.grabpay_radioButton(), "Grab pay");
+        if(ewallet_option.equals("grab")){
+            click(shippingPageObjects.grabpay_radioButton(), "Grab radio button");
+        }
+        else if (ewallet_option.equals("gcash")) {
+            click(shippingPageObjects.gcash_radioButton(), "Gcash radio button");
+        }
+        else if (ewallet_option.equals("paymaya")) {
+            click(shippingPageObjects.paymaya_radioButton(), "Paymaya radio button");
+        }else{
+            failTest("Invalid Payment Option", ewallet_option);
+        }
         waitSleep(500);
         double currentTotal = parsePesoAndConvertToDouble(shippingPageObjects.totalPayment_text());
         assertEqual(currentTotal, computeTotal(), 0.01);
@@ -190,7 +201,7 @@ public class Shipping_Steps extends Base_Steps{
         waitSleep(10000);
         //paymongo
         switchToNextTab();
-        waitSleep(10000);
+//        waitSleep(5000);
         isVisible(shippingPageObjects.total_paymongo(), shippingPageObjects.total_paymongo().getText());
         double paymongoTotal = parsePesoAndConvertToDouble(shippingPageObjects.total_paymongo());
         assertEqual(paymongoTotal, currentTotal, 0.1);
@@ -210,6 +221,7 @@ public class Shipping_Steps extends Base_Steps{
         click(shippingPageObjects.authorizeTest_button(), "Authorize Test Payment button");
         waitSleep(800);
         isVisible(shippingPageObjects.success_header(), "Success Header");
+        waitSleep(1200);
         click(shippingPageObjects.returnMerchant_button(), "Return to merchant");
 
         //back to shop
@@ -219,6 +231,7 @@ public class Shipping_Steps extends Base_Steps{
         click(home_PageObjects.purchaseHistory_option(), home_PageObjects.purchaseHistory_option().getText());
         waitSleep(1200);
         assertEqual(driver.getCurrentUrl(), purhcaseHistoryUrl);
+        int ctr=0;
         for(WebElement items : home_PageObjects.productNames()){
             inHistoryItems.add(items.getText());
         }
@@ -226,6 +239,10 @@ public class Shipping_Steps extends Base_Steps{
             for (String items : inHistoryItems){
                 ExtentReporter.logInfo("Items in Purchase History Page: "+items,"");
                 LoggingUtils.info("Items in Purchase History Page: "+items);
+                ctr++;
+                if(ctr >= 10){
+                    break;
+                }
             }
             passTest("ITEMS IN SHIPPING PAGE ARE PRESENT IN PURCHASE HISTORY", "");
         }else{
