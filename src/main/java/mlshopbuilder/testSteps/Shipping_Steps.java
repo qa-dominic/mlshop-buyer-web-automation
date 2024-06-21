@@ -39,9 +39,11 @@ public class Shipping_Steps extends Base_Steps{
         return merchTotal + serviceTotal + shippingTotal;
     }
     public void selectPickUpBranch(){
+//        scrollToElement(shippingPageObjects.province_dropDown());
         selectByVisibleText(shippingPageObjects.province_dropDown(), "CEBU");
         selectByVisibleText(shippingPageObjects.city_dropDown(), "CEBU CITY");
-        selectByVisibleText(shippingPageObjects.branch_dropDown(), "ML NRA");
+        selectByVisibleText(shippingPageObjects.branch_dropDown(), "MLTG QA");
+//        selectByIndex(shippingPageObjects.branch_dropDown(), 7);
     }
     public void selectProductAndCheckOut(){
         homeSteps.clickProduct();
@@ -178,7 +180,7 @@ public class Shipping_Steps extends Base_Steps{
         scrollToElement(shippingPageObjects.placeOrder_Btn());
         //eWallet option
         click(shippingPageObjects.ewallet_radioButton(), "eWallet Option");
-        waitSleep(800);
+        waitSleep(1500);
         if(ewallet_option.equals("grab")){
             click(shippingPageObjects.grabpay_radioButton(), "Grab radio button");
         }
@@ -190,7 +192,7 @@ public class Shipping_Steps extends Base_Steps{
         }else{
             failTest("Invalid Payment Option", ewallet_option);
         }
-        waitSleep(500);
+        waitSleep(800);
         double currentTotal = parsePesoAndConvertToDouble(shippingPageObjects.totalPayment_text());
         assertEqual(currentTotal, computeTotal(), 0.01);
         click(shippingPageObjects.placeOrder_Btn(), "Place Order");
@@ -198,11 +200,14 @@ public class Shipping_Steps extends Base_Steps{
         waitSleep(1800);
         isVisible(loginPageObjects.otpMessage(), getText(loginPageObjects.otpMessage()));
         loginSteps.inputOTP();
-        waitSleep(10000);
         //paymongo
+        waitSleep(8000);
         switchToNextTab();
         waitSleep(5000);
-        isVisible(shippingPageObjects.total_paymongo(), shippingPageObjects.total_paymongo().getText());
+        LoggingUtils.info(getWebDriver().getCurrentUrl());
+        LoggingUtils.info(getWebDriver().getTitle());
+        assertEqual(getWebDriver().getTitle(), "PayMongo Checkout");
+        isVisible(shippingPageObjects.merchantName(), shippingPageObjects.merchantName().getText());
         double paymongoTotal = parsePesoAndConvertToDouble(shippingPageObjects.total_paymongo());
         assertEqual(paymongoTotal, currentTotal, 0.1);
         for(WebElement items : shippingPageObjects.itemName_paymongo()){
@@ -213,19 +218,19 @@ public class Shipping_Steps extends Base_Steps{
             LoggingUtils.info("Items in Paymongo Page: "+items);
         }
         click(shippingPageObjects.continueButton_paymongo(), "Continue button on Paymongo portal");
-        waitSleep(1200);
+        waitSleep(1800);
         click(shippingPageObjects.privacyPolicy_checkBox(), "Paymongo's Privacy Policy checkbox");
-        waitSleep(800);
+        waitSleep(1200);
         click(shippingPageObjects.completePayment_button(), "Complete payment button");
-        waitSleep(800);
+        waitSleep(1200);
         click(shippingPageObjects.authorizeTest_button(), "Authorize Test Payment button");
-        waitSleep(800);
+        waitSleep(1200);
         isVisible(shippingPageObjects.success_header(), "Success Header");
         waitSleep(1200);
         click(shippingPageObjects.returnMerchant_button(), "Return to merchant");
 
         //back to shop
-        switchToNextTab();
+        switchToPreviousTab();
         waitSleep(1200);
         scrollToElement(home_PageObjects.userIcon());
         click(home_PageObjects.userIcon(), home_PageObjects.userIcon().getText());

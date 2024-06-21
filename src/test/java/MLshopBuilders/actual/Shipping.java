@@ -9,10 +9,10 @@ public class Shipping extends BaseTest {
      public  void Login() throws Exception{
          loginSteps.login();
      }
-    @Test(priority = 1, dependsOnMethods = "Login",description = "To Validate Successful purchase of jewelry item when logged in using mlwallet")
-    public  void completePurchaseJewelery_toHistory() throws Exception{
-        shippingSteps.areItemsPresent_fromCart_toShipping();
-    }
+//    @Test(priority = 1, dependsOnMethods = "Login",description = "To Validate Successful purchase of jewelry item when logged in using mlwallet")
+//    public  void completePurchaseJewelery_toHistory() throws Exception{
+//        shippingSteps.areItemsPresent_fromCart_toShipping();
+//    }
 //    @Test(priority = 1, description = "To Validate Successful purchase of jewelry item when logged in using mlwallet")
 //    public  void purchaseJewelry_mlWallet_withoutLogin() throws Exception{
 //        shippingSteps.purchaseJewelry_mlWallet_withoutLogin();

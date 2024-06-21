@@ -76,6 +76,10 @@ public class Shipping_PageObjects {
         return getDriver().findElements(By.xpath("//td[@class='flex flex-col px-2 py-4 ']/child::div/child::p"));
     }
     //paymongo
+    //
+    public WebElement merchantName() {
+        return getDriver().findElement(By.cssSelector("[for=\"merchant-name\"]"));
+    }
     public WebElement continueButton_paymongo() {
         return getDriver().findElement(By.cssSelector("[class='button full-width button--primary']"));
     }

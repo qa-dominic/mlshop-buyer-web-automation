@@ -167,10 +167,16 @@ public class GeneralMethod extends ExtentReporter{
         String currentWindowHandle = getDriver().getWindowHandle();
         Set<String> windowHandles = getDriver().getWindowHandles();
 
+        if (windowHandles.size() <= 1) {
+            LoggingUtils.info("No next tab/window to switch to or close");
+            ExtentReporter.logInfo("No Tab to Switch", "No Tab to Switch");
+            return;
+        }
+
         for (String windowHandle : windowHandles) {
             if (!windowHandle.equals(currentWindowHandle)) {
                 getDriver().switchTo().window(windowHandle);
-                LoggingUtils.info("Switch to " + currentWindowHandle);
+                LoggingUtils.info("Switch Tab " + currentWindowHandle);
                 ExtentReporter.logInfo("Switch Next Tab" , "Window ID: "+currentWindowHandle);
                 break;
             }
@@ -219,12 +225,11 @@ public class GeneralMethod extends ExtentReporter{
         String currentWindowHandle = getWebDriver().getWindowHandle();
         Set<String> windowHandles = getWebDriver().getWindowHandles();
         String previousWindowHandle = null;
-
+        getWebDriver().close();
         for (String windowHandle : windowHandles) {
-            if (windowHandle.equals(currentWindowHandle)) {
-                break;
+            if (!windowHandle.equals(currentWindowHandle)) {
+                previousWindowHandle = windowHandle;
             }
-            previousWindowHandle = windowHandle;
         }
 
         if (previousWindowHandle != null) {
@@ -373,9 +378,31 @@ public class GeneralMethod extends ExtentReporter{
             throw new AssertionError("No Selected Value" + e.getMessage());
         }
     }
+    public void selectByValue(WebElement locator, String value){
+        Select select = new Select(locator);
+        try{
+            wait.until(ExpectedConditions.visibilityOf(locator));
+            select.selectByValue(value);
+            LoggingUtils.info("Selected Value: " + value);
+            ExtentReporter.logInfo("Selected Value: "+ value + " from " + locator , "");
+        }catch (Exception e){
+            throw new AssertionError("No Selected Value" + e.getMessage());
+        }
+    }
+    public void selectByIndex(WebElement locator, int index){
+        Select select = new Select(locator);
+        try{
+            wait.until(ExpectedConditions.visibilityOf(locator));
+            select.selectByIndex(index);
+            LoggingUtils.info("Selected Index: " + index);
+            ExtentReporter.logInfo("Selected Index: "+ index + " from " + locator , "");
+        }catch (Exception e){
+            throw new AssertionError("No Selected Index" + e.getMessage());
+        }
+    }
     public static int getRandomNumber() {
         Random random = new Random();
-        return random.nextInt(999) + 1;
+        return random.nextInt(5) + 1; //random 1 to 5
     }
     public static int getThreeDigitRandomNumber() {
         Random random = new Random();
