@@ -22,6 +22,11 @@ pipeline {
                         }
                     }
                 }
+                  stage('Transaction Test') {
+                                    steps {
+                                        bat "mvn clean test -DfileName=transactionals.xml"
+                                    }
+                                }
                 stage('Test') {
                     steps {
                         bat "mvn clean test -DfileName=test.xml"

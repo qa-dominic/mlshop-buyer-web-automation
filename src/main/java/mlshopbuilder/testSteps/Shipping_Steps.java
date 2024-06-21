@@ -39,7 +39,7 @@ public class Shipping_Steps extends Base_Steps{
         return merchTotal + serviceTotal + shippingTotal;
     }
     public void selectPickUpBranch(){
-        selectByVisibleText(shippingPageObjects.province_dropDown(), "Cebu");
+        selectByVisibleText(shippingPageObjects.province_dropDown(), "CEBU");
         selectByVisibleText(shippingPageObjects.city_dropDown(), "CEBU CITY");
         selectByVisibleText(shippingPageObjects.branch_dropDown(), "ML NRA");
     }
@@ -201,7 +201,7 @@ public class Shipping_Steps extends Base_Steps{
         waitSleep(10000);
         //paymongo
         switchToNextTab();
-//        waitSleep(5000);
+        waitSleep(5000);
         isVisible(shippingPageObjects.total_paymongo(), shippingPageObjects.total_paymongo().getText());
         double paymongoTotal = parsePesoAndConvertToDouble(shippingPageObjects.total_paymongo());
         assertEqual(paymongoTotal, currentTotal, 0.1);
@@ -226,6 +226,7 @@ public class Shipping_Steps extends Base_Steps{
 
         //back to shop
         switchToNextTab();
+        waitSleep(1200);
         scrollToElement(home_PageObjects.userIcon());
         click(home_PageObjects.userIcon(), home_PageObjects.userIcon().getText());
         click(home_PageObjects.purchaseHistory_option(), home_PageObjects.purchaseHistory_option().getText());
