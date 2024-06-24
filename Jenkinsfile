@@ -1,7 +1,9 @@
 pipeline {
     agent {
+      label {
         label 'Dominic-PC-D'
         retries 2
+      }
     }
     environment {
         MAVEN_CLEAN_COMPILE_COMMAND = "mvn clean compile"
@@ -50,14 +52,6 @@ pipeline {
                                 reportTitles: '',
                                 useWrapperFileDirectly: true
                             ])
-                           testNG([
-                                escapeExceptionMsg: true,
-                                escapeTestDescp: true,
-                                failedFails : 5,
-                                thresholdMode : true,
-                                reportFilenamePattern : "${TESTNG_NAME}"
-                           ])
-                            junit '**/target/surefire-reports/*.xml'
                         }
                         failure {
                             publishHTML([
@@ -71,14 +65,6 @@ pipeline {
                                 useWrapperFileDirectly: true
                             ])
                         }
-                         testNG([
-                            escapeExceptionMsg: true,
-                            escapeTestDescp: true,
-                            failedFails : 5,
-                            thresholdMode : true,
-                            reportFilenamePattern : "${TESTNG_NAME}"
-                       ])
-                        junit '**/target/surefire-reports/*.xml'
                     }
                 }
             }
