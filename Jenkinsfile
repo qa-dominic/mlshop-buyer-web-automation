@@ -1,20 +1,27 @@
 pipeline {
     agent {
         label 'Dominic-PC-D'
+        retries 2
     }
     environment {
-        MAVEN_CMD = "mvn clean compile"
+        MAVEN_CLEAN_COMPILE_COMMAND = "mvn clean compile"
         REPORT_DIR = "Reports"
         REPORT_FILE = "Spark.html"
         REPORT_NAME = "ExtentReport"
+        TESTNG_NAME = "**/target/testng-results.xml"
     }
 
     stages {
+        stage('Checkout'){
+            steps{
+                checkout scm
+            }
+        }
         stage('Build & Test') {
             parallel {
                 stage('Build') {
                     steps {
-                        bat "${MAVEN_CMD}"
+                        bat "${MAVEN_CLEAN_COMPILE_COMMAND}"
                     }
                     post {
                         failure {
@@ -27,7 +34,7 @@ pipeline {
                             bat "mvn clean test -DfileName=transactionals.xml"
                         }
                     }
-                stage('Test') {
+                stage('Regression Test') {
                     steps {
                         bat "mvn clean test -DfileName=test.xml"
                     }
@@ -43,6 +50,14 @@ pipeline {
                                 reportTitles: '',
                                 useWrapperFileDirectly: true
                             ])
+                           testNG([
+                                escapeExceptionMsg: true,
+                                escapeTestDescp: true,
+                                failedFails : 5,
+                                thresholdMode : true,
+                                reportFilenamePattern : "${TESTNG_NAME}"
+                           ])
+                            junit '**/target/surefire-reports/*.xml'
                         }
                         failure {
                             publishHTML([
@@ -56,9 +71,18 @@ pipeline {
                                 useWrapperFileDirectly: true
                             ])
                         }
+                         testNG([
+                            escapeExceptionMsg: true,
+                            escapeTestDescp: true,
+                            failedFails : 5,
+                            thresholdMode : true,
+                            reportFilenamePattern : "${TESTNG_NAME}"
+                       ])
+                        junit '**/target/surefire-reports/*.xml'
                     }
                 }
             }
         }
+       // sonar qube, dockerized, and deploy
     }
 }
