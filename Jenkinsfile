@@ -22,11 +22,11 @@ pipeline {
                         }
                     }
                 }
-                  stage('Transaction Test') {
-                                    steps {
-                                        bat "mvn clean test -DfileName=transactionals.xml"
-                                    }
-                                }
+                 stage('Transaction Test') {
+                        steps {
+                            bat "mvn clean test -DfileName=transactionals.xml"
+                        }
+                    }
                 stage('Test') {
                     steps {
                         bat "mvn clean test -DfileName=test.xml"
@@ -35,7 +35,7 @@ pipeline {
                         success {
                             publishHTML([
                                 allowMissing: false,
-                                alwaysLinkToLastBuild: false,
+                                alwaysLinkToLastBuild: true,
                                 keepAll: false,
                                 reportDir: "${REPORT_DIR}",
                                 reportFiles: "${REPORT_FILE}",
@@ -47,7 +47,7 @@ pipeline {
                         failure {
                             publishHTML([
                                 allowMissing: false,
-                                alwaysLinkToLastBuild: false,
+                                alwaysLinkToLastBuild: true,
                                 keepAll: false,
                                 reportDir: "${REPORT_DIR}",
                                 reportFiles: "${REPORT_FILE}",

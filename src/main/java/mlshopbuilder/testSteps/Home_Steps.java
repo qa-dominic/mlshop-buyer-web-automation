@@ -69,6 +69,7 @@ public class Home_Steps extends Base_Steps{
     //To Validate profile page navigation from user drop down menu
     public void profileNavigation(){
         click(home_PageObjects.userIcon(), "User icon");
+        waitSleep(800);
         click(home_PageObjects.profile_option(), "Profile");
         waitSleep(800);
         assertEqual(driver.getCurrentUrl(), profile_url);
@@ -81,6 +82,7 @@ public class Home_Steps extends Base_Steps{
     //To Validate purchase history page navigation from user drop down menu
     public void purchaseHistoryNavigation(){
         click(home_PageObjects.userIcon(), "User icon");
+        waitSleep(800);
         click(home_PageObjects.purchaseHistory_option(), "purchaseHistory_option");
         waitSleep(800);
         assertEqual(driver.getCurrentUrl(), purchase_url);
@@ -98,6 +100,7 @@ public class Home_Steps extends Base_Steps{
     //To Validate logout functionality from user drop down menu
     public void logoutValidation(){
         click(home_PageObjects.userIcon(), "User icon");
+        waitSleep(800);
         click(home_PageObjects.logout_option(), "logout_option");
         click(home_PageObjects.userIcon(), "User icon");
         assertEqual(driver.getCurrentUrl(), login_url);
