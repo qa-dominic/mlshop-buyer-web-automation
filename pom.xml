@@ -33,7 +33,7 @@
         <threads>1</threads>
         <browser>chrome</browser>
         <headless>false</headless>
-        <remote>false</remote>
+        <remote>true</remote>
         <seleniumGridURL>http://10.10.8.167:4444/wd/hub</seleniumGridURL>
         <platform></platform>
         <browserVersion />
@@ -151,7 +151,7 @@
                         <headless>${headless}</headless>
                         <browser>${browser}</browser>
                         <projectBuildDir>${projectBuildDir}</projectBuildDir>
-                        <remoteDriver>${remote}</remoteDriver>
+                        <remote>${remote}</remote>
                         <gridURL>${seleniumGridURL}</gridURL>
                         <targetUrl>${preprod}</targetUrl>
                         <homeUrl>${homeUrl}</homeUrl>
