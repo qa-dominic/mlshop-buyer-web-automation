@@ -33,7 +33,7 @@
         <threads>1</threads>
         <browser>chrome</browser>
         <headless>false</headless>
-        <remote>true</remote>
+        <remote>false</remote>
         <seleniumGridURL>http://10.10.8.167:4444/wd/hub</seleniumGridURL>
         <platform></platform>
         <browserVersion />
