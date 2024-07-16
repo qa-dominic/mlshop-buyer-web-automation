@@ -4,6 +4,7 @@ import mlshopbuilder.pageObject.*;
 import utilities.ReusableComponents.GeneralMethod;
 import utilities.PropertyReader.propertyReader;
 import utilities.FileUtils.FilePathUtils;
+import utilities.RestApi.ApiUtils.*;
 
 public abstract class Base_Steps extends GeneralMethod {
 

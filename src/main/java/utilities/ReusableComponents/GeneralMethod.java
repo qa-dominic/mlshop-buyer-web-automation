@@ -143,7 +143,17 @@ public class GeneralMethod extends ExtentReporter{
             throw new AssertionError("Assertion error: "+ e.getMessage());
         }
     }
-
+    public void assertEqual(int actual, int expected){
+        try{
+            Assert.assertEquals(actual, expected);
+            LoggingUtils.info(actual +  " and " + expected + " are matched");
+            ExtentReporter.logInfo("Assertion: "+actual +  " and " + expected + " are matched" , "asserted values " + actual + " and " + expected);
+        }catch(Exception e){
+            LoggingUtils.error("Assertion error: "+ e.getMessage());
+            ExtentReporter.logFail("Assertion error: "+ e.getMessage(), "Caused: "+ e);
+            throw new AssertionError("Assertion error: "+ e.getMessage());
+        }
+    }
     public void waitImplicitly(int seconds){
         try{
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));

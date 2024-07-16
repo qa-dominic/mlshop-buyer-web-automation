@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 
 public class LoginT extends BaseTest {
 
-    // @Test(priority = 0, description = "Validate Login as User")
-    // public  void Login() throws Exception{
-    //     loginSteps.login();
-    // }
+     @Test(priority = 0, description = "Validate Login as User")
+     public  void Login() throws Exception{
+         loginSteps.login();
+     }
     @Test(priority = 1, description = "To validate the error message prompt for an empty mobile number field on the login page.")
     public  void LOGIN_emptyMobileNumber_field() throws Exception{
         loginSteps.emptyMobileNumber_field();

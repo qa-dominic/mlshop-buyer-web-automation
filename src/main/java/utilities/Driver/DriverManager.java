@@ -1,6 +1,7 @@
 package utilities.Driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -36,21 +37,7 @@ public class DriverManager {
         }
         setupBrowserTimeouts();
     }
-    // public static void setupChrome(){
-    //     try{
-    //         LoggingUtils.info("Setting up chrome driver...");
-    //         HashMap<String, Object> chromePreferences = new HashMap<>();
-    //         final ChromeOptions options = getChromeOptions();
-    //         options.setExperimentalOption("prefs", chromePreferences);
-    //         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-    //         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options); 
-    //         WebDriverManager.chromedriver().clearDriverCache().capabilities(desiredCapabilities).setup();
-    //         setDriver(new ChromeDriver(options));
-    //         LoggingUtils.info("Chrome Driver created successfully");
-    //     }catch (Exception e){
-    //         LoggingUtils.error("Error setting up remote Chrome." + e);
-    //     }
-    // }
+
     private static void setupChrome() {
         LoggingUtils.info("Setting up chrome driver...");
         try {
@@ -63,20 +50,6 @@ public class DriverManager {
         }
     }
 
-    // public static void setupRemoteChrome(){
-    //     try {
-    //         LoggingUtils.info ("Setting up Remote Chrome Driver....");
-    //         final ChromeOptions options = getChromeOptions();
-    //         final String seleniumGridUrl = System.getProperty("gridURL");
-    //         if (seleniumGridUrl == null || seleniumGridUrl.trim().isEmpty()) {
-    //             throw new IllegalStateException("Selenium Grid URL is not set. Please set the 'seleniumGridURL' system property.");
-    //         }
-    //         setDriver(new RemoteWebDriver(new URL(seleniumGridUrl), options));
-    //         LoggingUtils.info("Remote Chrome Driver created successfully!");
-    //         } catch (MalformedURLException | IllegalStateException e) {
-    //             LoggingUtils.error("Error setting up remote Chrome." + e);
-    //         }
-    // }
     private static void setupRemoteChrome() {
         LoggingUtils.info("Setting up Remote Chrome Driver...");
         try {
@@ -93,6 +66,7 @@ public class DriverManager {
     }
     private static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         options.addArguments(
             "enable-automation",
             "--no-sandbox",
